@@ -1,0 +1,46 @@
+t_list *head;
+
+char *str = "hehey";
+head = ft_lstnew(str, (ft_strlen(str) + 1);
+head = ft_pushback("hehehey", ft_strlen("hehehey") + 1)
+
+
+
+
+
+void f(int *t)
+{
+	*t = *t + 1;
+}
+
+int i = 5;
+f(&i);
+printf("%d", i);
+
+
+void ft_addback(t_list *head, t_list *ptr)
+{
+	while (head->next)
+		head = head->next;
+	head->next = ptr;
+}
+
+ft_lstnew
+ft_addback
+ft_addfront
+удаляет птр из списка
+ft_denode(t_list **head, t_list ptr)
+принимает функцию, и запускает её с каждым элементом
+ft_lstiter()
+ft_lstdelif()
+ft_reverse
+sort array of integers
+ft_sort
+
+
+
+void ft_addfront(t_list **head, t_list ptr)
+{
+	ptr->next = *head;
+	*head = ptr
+}

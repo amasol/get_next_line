@@ -1,1 +1,4 @@
-CMakeLists.txt not found in /Users/amasol/amasol/project/get_next_line
+/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/bin/gcc -G "CodeBlocks - Unix Makefiles" /Users/amasol/amasol/project/get_next_line
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/amasol/amasol/project/get_next_line/cmake-build-debug

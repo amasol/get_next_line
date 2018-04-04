@@ -25,10 +25,9 @@ typedef struct		s_str
 {
 	int				fd;
 	char			data[BUFF_SIZE + 1];
+	char 			*buff;
 	struct	s_str	*next;
 }					t_str;
-
-char 				g_buff[BUFF_SIZE];
 
 int		get_next_line(const int fd, char **line);
 

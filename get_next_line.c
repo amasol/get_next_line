@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-static int		ft_check_n(t_str **memory, char **buff, char **line)
+static int		ft_check_n(char **buff, char **line)
 {
 	int 	j;
 	int 	i;
@@ -31,6 +31,7 @@ static int		ft_check_n(t_str **memory, char **buff, char **line)
 		{
 			*line = ft_strdup("\0");
 			*buff = ft_strsub(*buff, i + 1, ft_strlen(*buff) - i);
+			ft_strcpy(&g_buff[0], *buff);
 			return (1);
 		}
 		else
@@ -38,8 +39,8 @@ static int		ft_check_n(t_str **memory, char **buff, char **line)
 		*buff = ft_strsub(*buff, i + 1, ft_strlen(*buff) - i);
 		ft_strdel(&tmp);
 	}
+	ft_strcpy(&g_buff[0], *buff);
 	len = ft_strlen(*line);
-	(*memory)->buff = *buff;
 	len = len > 0 ? 1 : 0;
 	return (len);
 }
@@ -51,12 +52,10 @@ static void		ft_check_fd(t_str **memory, t_str **lst, char **buff, int fd)
 		*memory = (t_str *)malloc(sizeof(t_str));
 		(*memory)->fd = fd;
 		*buff = ft_strnew(BUFF_SIZE);
-	//	*buff = NULL;
-	//	(*memory)->buff = NULL;
 	}
 	*buff = ft_strnew(BUFF_SIZE);
 	*lst = *memory;
-	while ((*lst)->fd != fd && (*lst)->next)
+/*	while ((*lst)->fd != fd && (*lst)->next)
 		*lst = (*lst)->next;
 	if ((*lst)->fd != fd)
 	{
@@ -66,7 +65,7 @@ static void		ft_check_fd(t_str **memory, t_str **lst, char **buff, int fd)
 		*buff = ft_strnew(BUFF_SIZE);
 		(*lst)->fd = fd;
 //		free(*buff);
-	}
+	}*/
 }
 int				get_next_line(const int fd, char **line)
 {
@@ -81,7 +80,10 @@ int				get_next_line(const int fd, char **line)
 	*line = NULL;
 	if (fd < 0 || !line || read(lst->fd, lst->data, 0) < 0)
 		return (-1);
-	buff = memory->buff;
+	buff = ft_strjoin(&g_buff[0], buff);
+//	ft_bzero(&g_buff[0], ft_strlen(&g_buff[0]));
+//	free(&g_buff);
+	g_buff[0] = '\0';
 	while ((flag = read(lst->fd, lst->data, BUFF_SIZE)) > 0)
 	{
 		lst->data[flag] = '\0';
@@ -91,10 +93,10 @@ int				get_next_line(const int fd, char **line)
 		if (buff && ft_strchr(buff, '\n'))
 			break ;
 	}
-	flag = ft_check_n(&memory, &buff, line);
+	flag = ft_check_n(&buff, line);
 	return (flag);
 }
-
+/*
 int		main(int argc, char **argv)
 {
 	int fd;
@@ -107,3 +109,4 @@ int		main(int argc, char **argv)
 		free(line);
 	}
 }
+ */

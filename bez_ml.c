@@ -33,8 +33,6 @@ static int		ft_check_n(char **buff, char **line)
 
 int				get_next_line(const int fd, char **line)
 {
-//	t_str static 	*memory;
-//	t_str 			*lst;
 	char			data[BUFF_SIZE + 1];
 	static char		*buff;
 	char 			*clean;
@@ -56,11 +54,10 @@ int				get_next_line(const int fd, char **line)
 		if (buff && ft_strchr(buff, '\n'))
 			break ;
 	}
-//	printf("%s", buff);
 	flag = ft_check_n(&buff, line);
 	return (flag);
 }
-/*
+
 int		main(int argc, char **argv)
 {
 	int fd;
@@ -73,4 +70,3 @@ int		main(int argc, char **argv)
 		free(line);
 	}
 }
- */

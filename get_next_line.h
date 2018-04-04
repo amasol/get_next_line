@@ -19,15 +19,16 @@
 # include <fcntl.h>
 # include "./libft/libft.h"
 
-# define BUFF_SIZE 3
+# define BUFF_SIZE 1000
 
 typedef struct		s_str
 {
 	int				fd;
-	char			data[BUFF_SIZE];
-	char 			*buff;
+	char			data[BUFF_SIZE + 1];
 	struct	s_str	*next;
 }					t_str;
+
+char 				g_buff[BUFF_SIZE];
 
 int		get_next_line(const int fd, char **line);
 

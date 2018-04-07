@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 #include "./libft/libft.h"
-/*
+
 int		main(int ac, char **av)
 {
 	int fd1;
@@ -9,32 +9,32 @@ int		main(int ac, char **av)
 	char *line;
 
 	line = NULL;
-	fd1 = open(av[1], O_RDONLY);
-	fd2 = open(av[2], O_RDONLY);
-	fd3 = open(av[3], O_RDONLY);
-	if (get_next_line(fd1, &line) == 1)
+	fd1 = open("test", O_RDONLY);
+	fd2 = open("test2", O_RDONLY);
+	fd3 = open("test3", O_RDONLY);
+	if (get_next_line(fd1, &line) > 0)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
 	}
-	if (get_next_line(fd2, &line) == 1)
+	if (get_next_line(fd3, &line) > 0)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
 	}
-	if (get_next_line(fd3, &line) == 1)
+/*	if (get_next_line(fd3, &line) > 0)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
-	}
-	if (get_next_line(fd1, &line) == 1)
+	}*/
+	if (get_next_line(fd1, &line) > 0)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
 	}
 	return (0);
 }
-*/
+
 /*
 int		main(int ac, char **av)
 {
@@ -58,7 +58,7 @@ int		main(int ac, char **av)
 	return (0);
 }
 */
-
+/*
 int		main(int argc, char **argv)
 {
 	int		fd;
@@ -69,7 +69,7 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 		fd = 0;
 	else if (argc == 2)
-		fd = open(argv[1], O_RDWR);
+		fd = open(argv[1], O_RDONLY);
 	else
 		return (2);
 	while (get_next_line(fd, &line) > 0)
@@ -81,7 +81,7 @@ int		main(int argc, char **argv)
 		close(fd);
 //	system("leaks a.out");
 }
-
+*/
 /*
 int			main(int ac, char **av)
 {

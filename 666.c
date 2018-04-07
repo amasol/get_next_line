@@ -1,23 +1,25 @@
+#include "get_next_line.h"
 
+static int		ft_put_in_line(char *tmp, char **line)
 {
-char	*p;
-int		a;
+	char	*p;
+	int		a;
 
-if (!(p = ft_strchr(tmp, '\n')))
-{
-if (ft_strlen(tmp) > 0)
-{
-*line = ft_strdup(tmp);
-free(tmp);
-return (1);
-}
-free(tmp);
-return (0);
-}
-a = p - tmp;
-*line = ft_strsub(tmp, 0, a);
-free(tmp);
-return (1);
+	if (!(p = ft_strchr(tmp, '\n')))
+	{
+		if (ft_strlen(tmp) > 0)
+		{
+			*line = ft_strdup(tmp);
+			free(tmp);
+			return (1);
+		}
+		free(tmp);
+		return (0);
+	}
+	a = p - tmp;
+	*line = ft_strsub(tmp, 0, a);
+	free(tmp);
+	return (1);
 }
 
 static	void	ft_check(t_list **list, char **tmp)
@@ -80,3 +82,39 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	return (ft_put_in_line(tmp, line));
 }
+
+/*
+int		main(int ac, char **av)
+{
+	int fd3;
+	int fd4;
+	int fd5;
+	char *line;
+
+	line = NULL;
+	fd3 = open("test", O_RDONLY);
+//	fd4 = open("test2", O_RDONLY);
+	fd5 = open("test3", O_RDONLY);
+	if (get_next_line(fd3, &line) > 0)
+	{
+		ft_putstr(line);
+		ft_putchar('\n');
+	}
+	if (get_next_line(fd5, &line) > 0)
+	{
+		ft_putstr(line);
+		ft_putchar('\n');
+	}
+/*	if (get_next_line(fd3, &line) > 0)
+	{
+		ft_putstr(line);
+		ft_putchar('\n');
+	}
+	if (get_next_line(fd3, &line) > 0)
+	{
+		ft_putstr(line);
+		ft_putchar('\n');
+	}
+	return (0);
+}
+*/

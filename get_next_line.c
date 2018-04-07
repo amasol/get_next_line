@@ -43,8 +43,10 @@ static int		ft_check_n(char **line, t_str **memory)
 	return (len);
 }
 
-static void		ft_check_fd(t_str **memory, t_str **lst, int fd)
+static t_str	*ft_check_fd(t_str **memory, int fd)
 {
+	t_str *lst;
+
 	if (!(*memory))
 	{
 		*memory = (t_str *)malloc(sizeof(t_str));
@@ -52,18 +54,18 @@ static void		ft_check_fd(t_str **memory, t_str **lst, int fd)
 		(*memory)->buff = ft_strnew(0);
 		(*memory)->next = NULL;
 	}
-
-	*lst = *memory;
-	while ((*lst)->fd != fd && (*lst)->next)
-		*lst = (*lst)->next;
-	if ((*lst)->fd != fd)
+	lst = *memory;
+	while (lst->fd != fd && lst->next)
+		lst = lst->next;
+	if (lst->fd != fd)
 	{
-		(*lst)->next = (t_str *)malloc(sizeof(t_str));
-		*lst = (*lst)->next;
-		(*lst)->fd = fd;
-		(*lst)->next = NULL;
-		(*lst)->buff = ft_strnew(0);
+		lst->next = (t_str *)malloc(sizeof(t_str));
+		lst = lst->next;
+		lst->fd = fd;
+		lst->next = NULL;
+		lst->buff = ft_strnew(0);
 	}
+	return (lst);
 }
 
 int				get_next_line(const int fd, char **line)
@@ -77,7 +79,7 @@ int				get_next_line(const int fd, char **line)
 	*line = NULL;
 	if (fd < 0 || !line /*|| read(lst->fd, lst->data, 0) < 0*/)
 			return (-1);
-	ft_check_fd(&memory, &lst, fd);
+	lst = ft_check_fd(&memory, fd);
 	while ((flag = read(lst->fd, lst->data, BUFF_SIZE)) > 0)
 	{
 		lst->data[flag] = '\0';

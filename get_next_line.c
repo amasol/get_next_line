@@ -50,7 +50,9 @@ static void		ft_check_fd(t_str **memory, t_str **lst, int fd)
 		*memory = (t_str *)malloc(sizeof(t_str));
 		(*memory)->fd = fd;
 		(*memory)->buff = ft_strnew(0);
+		(*memory)->next = NULL;
 	}
+
 	*lst = *memory;
 	while ((*lst)->fd != fd && (*lst)->next)
 		*lst = (*lst)->next;
@@ -59,7 +61,8 @@ static void		ft_check_fd(t_str **memory, t_str **lst, int fd)
 		(*lst)->next = (t_str *)malloc(sizeof(t_str));
 		*lst = (*lst)->next;
 		(*lst)->fd = fd;
-		(*memory)->buff = ft_strnew(0);
+		(*lst)->next = NULL;
+		(*lst)->buff = ft_strnew(0);
 	}
 }
 
@@ -118,11 +121,15 @@ int		main(int ac, char **av)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
+		free(line);
+		line = NULL;
 	}
 	if (get_next_line(fd5, &line) > 0)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
+		free(line);
+		line = NULL;
 	}
 /*	if (get_next_line(fd4, &line) > 0)
 	{
@@ -133,6 +140,8 @@ int		main(int ac, char **av)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
+		free(line);
+		line = NULL;
 	}
 	return (0);
 }

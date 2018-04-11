@@ -12,35 +12,33 @@
 
 #include "get_next_line.h"
 
-static int		ft_check_n(char **line, t_str **memory)
+static int		ft_check_n(char **line, t_str **lst)
 {
-	int 	j;
-	int 	i;
-	int 	len;
-	char 	*tmp;
+	t_help r;
 
-	i = 0;
-	len = 0;
-	tmp = (*memory)->buff;
-	if ((*memory)->buff)
+	r.len = 0;
+	r.tmp = (*lst)->buff;
+	if ((*lst)->buff && !(r.i = 0))
 	{
-		while ((*memory)->buff[i] && (*memory)->buff[i] != '\n')
-			i++;
-		j = 0;
-		if ((*memory)->buff[j] == '\n')
+		while ((*lst)->buff[r.i] && (*lst)->buff[r.i] != '\n')
+			r.i++;
+		r.j = 0;
+		if ((*lst)->buff[r.j] == '\n')
 		{
 			*line = ft_strdup("\0");
-			(*memory)->buff = ft_strsub((*memory)->buff, i + 1, ft_strlen((*memory)->buff) - i);
+			(*lst)->buff = ft_strsub((*lst)->buff, r.i + 1,
+			ft_strlen((*lst)->buff) - r.i);
 			return (1);
 		}
 		else
-			*line = ft_strsub((*memory)->buff, 0, i);
-		(*memory)->buff = ft_strsub((*memory)->buff, i + 1, ft_strlen((*memory)->buff) - i);
-		ft_strdel(&tmp);
+			*line = ft_strsub((*lst)->buff, 0, r.i);
+		(*lst)->buff = ft_strsub((*lst)->buff, r.i + 1,
+		ft_strlen((*lst)->buff) - r.i);
+		ft_strdel(&r.tmp);
 	}
-	len = ft_strlen(*line);
-	len = len > 0 ? 1 : 0;
-	return (len);
+	r.len = ft_strlen(*line);
+	r.len = r.len > 0 ? 1 : 0;
+	return (r.len);
 }
 
 static t_str	*ft_check_fd(t_str **memory, int fd)
@@ -72,78 +70,24 @@ int				get_next_line(const int fd, char **line)
 {
 	t_str			*lst;
 	static t_str	*memory;
-	char 			*clean;
-	int 			flag;
+	char			*clean;
+	int				flag;
 
 	flag = 0;
-	*line = NULL;
-	if (fd < 0 || !line /*|| read(lst->fd, lst->data, 0) < 0*/)
-			return (-1);
+	if (fd < 0 || !line)
+		return (-1);
 	lst = ft_check_fd(&memory, fd);
+	if (read(lst->fd, lst->data, 0) < 0)
+		return (-1);
 	while ((flag = read(lst->fd, lst->data, BUFF_SIZE)) > 0)
 	{
 		lst->data[flag] = '\0';
-		clean = memory->buff;
-		memory->buff = ft_strjoin(memory->buff, lst->data);
+		clean = lst->buff;
+		lst->buff = ft_strjoin(lst->buff, lst->data);
 		ft_strdel(&clean);
-		if (memory->buff && ft_strchr(memory->buff, '\n'))
+		if (lst->buff && ft_strchr(lst->buff, '\n'))
 			break ;
 	}
-	flag = ft_check_n(line, &memory);
+	flag = ft_check_n(line, &lst);
 	return (flag);
-}
-
-/*
-int		main(int argc, char **argv)
-{
-	int fd;
-	char *line;
-
-	fd = open(argv[1], O_RDONLY);
-	while (get_next_line(fd, &line) == 1)
-	{
-		printf("%s\n", line);
-		free(line);
-	}
-}
-*/
-
-int		main(int ac, char **av)
-{
-	int fd3;
-	int fd4;
-	int fd5;
-	char *line;
-
-	line = NULL;
-	fd3 = open("test", O_RDONLY);
-//	fd4 = open("test2", O_RDONLY);
-	fd5 = open("test3", O_RDONLY);
-	if (get_next_line(fd3, &line) > 0)
-	{
-		ft_putstr(line);
-		ft_putchar('\n');
-		free(line);
-		line = NULL;
-	}
-	if (get_next_line(fd5, &line) > 0)
-	{
-		ft_putstr(line);
-		ft_putchar('\n');
-		free(line);
-		line = NULL;
-	}
-/*	if (get_next_line(fd4, &line) > 0)
-	{
-		ft_putstr(line);
-		ft_putchar('\n');
-	}*/
-	if (get_next_line(fd3, &line) > 0)
-	{
-		ft_putstr(line);
-		ft_putchar('\n');
-		free(line);
-		line = NULL;
-	}
-	return (0);
 }

@@ -3,16 +3,32 @@
 
 int		main(int ac, char **av)
 {
-	int fd1;
-	int fd2;
 	int fd3;
+	int fd4;
+	int fd5;
+	int fd6;
 	char *line;
 
 	line = NULL;
-	fd1 = open("test", O_RDONLY);
-	fd2 = open("test2", O_RDONLY);
-	fd3 = open("test3", O_RDONLY);
-	if (get_next_line(fd1, &line) > 0)
+	fd3 = open("test", O_RDONLY);
+	fd4 = open("test2", O_RDONLY);
+	fd5 = open("test3", O_RDONLY);
+	fd6 = open("test4", O_RDONLY);
+	if (get_next_line(fd3, &line) > 0)
+	{
+		ft_putstr(line);
+		ft_putchar('\n');
+		free(line);
+		line = NULL;
+	}
+	if (get_next_line(fd5, &line) > 0)
+	{
+		ft_putstr(line);
+		ft_putchar('\n');
+		free(line);
+		line = NULL;
+	}
+	if (get_next_line(fd4, &line) > 0)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
@@ -21,16 +37,29 @@ int		main(int ac, char **av)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
+		free(line);
+		line = NULL;
 	}
-/*	if (get_next_line(fd3, &line) > 0)
+	if (get_next_line(fd5, &line) > 0)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
-	}*/
-	if (get_next_line(fd1, &line) > 0)
+		free(line);
+		line = NULL;
+	}
+	if (get_next_line(fd5, &line) > 0)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
+		free(line);
+		line = NULL;
+	}
+	if (get_next_line(fd6, &line) > 0)
+	{
+		ft_putstr(line);
+		ft_putchar('\n');
+		free(line);
+		line = NULL;
 	}
 	return (0);
 }
@@ -74,8 +103,8 @@ int		main(int argc, char **argv)
 		return (2);
 	while (get_next_line(fd, &line) > 0)
 	{
-		printf("%s\n", line);
-		free(line);
+//		printf("%s\n", line);
+//		free(line);
 	}
 	if (argc == 2)
 		close(fd);

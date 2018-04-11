@@ -83,7 +83,7 @@ int				get_next_line(const int fd, char **line)
 	return (ft_put_in_line(tmp, line));
 }
 
-/*
+
 int		main(int ac, char **av)
 {
 	int fd3;
@@ -109,7 +109,7 @@ int		main(int ac, char **av)
 	{
 		ft_putstr(line);
 		ft_putchar('\n');
-	}
+	}*/
 	if (get_next_line(fd3, &line) > 0)
 	{
 		ft_putstr(line);
@@ -117,4 +117,3 @@ int		main(int ac, char **av)
 	}
 	return (0);
 }
-*/

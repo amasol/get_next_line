@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	 GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
 # include <unistd.h>
@@ -19,16 +19,24 @@
 # include <fcntl.h>
 # include "./libft/libft.h"
 
-# define BUFF_SIZE 30
+# define BUFF_SIZE 10
 
 typedef struct		s_str
 {
 	int				fd;
 	char			data[BUFF_SIZE + 1];
-	char 			*buff;
-	struct	s_str	*next;
+	char			*buff;
+	struct s_str	*next;
 }					t_str;
 
-int		get_next_line(const int fd, char **line);
+typedef struct		s_help
+{
+	int				j;
+	int				i;
+	char			*tmp;
+	int				len;
+}					t_help;
 
-# endif
+int					get_next_line(const int fd, char **line);
+
+#endif
